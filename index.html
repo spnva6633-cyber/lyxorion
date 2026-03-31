@@ -18,20 +18,23 @@ body{
   background:#000;
   color:#fff;
   font-family:'Playfair Display', serif;
+  overflow:hidden;
 }
 
-/* NAVBAR */
+/* NAV */
 .nav{
   display:flex;
   justify-content:space-between;
   padding:20px;
   color:#aaa;
   font-size:14px;
+  opacity:0;
+  animation:fadeIn 2s forwards;
 }
 
 /* HERO */
 .hero{
-  height:80vh;
+  height:100vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -39,15 +42,22 @@ body{
   text-align:center;
 }
 
+/* LOGO */
 .logo{
   font-size:48px;
   letter-spacing:8px;
+  opacity:0;
+  transform:scale(0.8);
+  animation:zoomIn 1.5s forwards;
 }
 
+/* TAGLINE */
 .tagline{
   margin-top:10px;
   color:#aaa;
   letter-spacing:3px;
+  opacity:0;
+  animation:fadeIn 2s 1s forwards;
 }
 
 /* BUTTON */
@@ -57,51 +67,39 @@ body{
   border:1px solid #fff;
   color:#fff;
   background:transparent;
-  transition:0.3s;
+  opacity:0;
+  transform:translateY(20px);
+  animation:slideUp 1.5s 1.5s forwards;
 }
 
-.btn:hover{
-  background:#fff;
-  color:#000;
+/* ANIMATIONS */
+@keyframes fadeIn{
+  to{
+    opacity:1;
+  }
 }
 
-/* PRODUCTS */
-.products{
-  padding:60px 20px;
-  text-align:center;
+@keyframes zoomIn{
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
 }
 
-.product-grid{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  margin-top:30px;
-  flex-wrap:wrap;
+@keyframes slideUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
-.card{
-  width:160px;
-  height:200px;
-  border:1px solid #222;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#777;
-  transition:0.3s;
-}
-
-.card:hover{
-  border-color:#fff;
-  transform:translateY(-5px);
-}
-
-/* FOOTER */
 .footer{
+  position:absolute;
+  bottom:20px;
+  width:100%;
   text-align:center;
-  padding:30px;
   color:#555;
   font-size:12px;
-  border-top:1px solid #222;
 }
 </style>
 
@@ -109,31 +107,17 @@ body{
 
 <body>
 
-<!-- NAV -->
 <div class="nav">
   <div>LYXORION</div>
   <div>COMING SOON</div>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="logo">LYXORION</div>
   <div class="tagline">BEYOND LUXURY</div>
   <button class="btn">COMING SOON</button>
 </section>
 
-<!-- PRODUCTS -->
-<section class="products">
-  <h2>Future Collection</h2>
-
-  <div class="product-grid">
-    <div class="card">T-SHIRT</div>
-    <div class="card">HOODIE</div>
-    <div class="card">COMING SOON</div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <div class="footer">
   © 2026 LYXORION
 </div>
