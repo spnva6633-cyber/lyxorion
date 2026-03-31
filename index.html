@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LYXORION</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:'Playfair Display', serif;
+}
+
+/* NAVBAR */
+.nav{
+  display:flex;
+  justify-content:space-between;
+  padding:20px;
+  color:#aaa;
+  font-size:14px;
+}
+
+/* HERO */
+.hero{
+  height:80vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.logo{
+  font-size:48px;
+  letter-spacing:8px;
+}
+
+.tagline{
+  margin-top:10px;
+  color:#aaa;
+  letter-spacing:3px;
+}
+
+/* BUTTON */
+.btn{
+  margin-top:30px;
+  padding:12px 30px;
+  border:1px solid #fff;
+  color:#fff;
+  background:transparent;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:#fff;
+  color:#000;
+}
+
+/* PRODUCTS */
+.products{
+  padding:60px 20px;
+  text-align:center;
+}
+
+.product-grid{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+.card{
+  width:160px;
+  height:200px;
+  border:1px solid #222;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#777;
+  transition:0.3s;
+}
+
+.card:hover{
+  border-color:#fff;
+  transform:translateY(-5px);
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  padding:30px;
+  color:#555;
+  font-size:12px;
+  border-top:1px solid #222;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div>LYXORION</div>
+  <div>COMING SOON</div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="logo">LYXORION</div>
+  <div class="tagline">BEYOND LUXURY</div>
+  <button class="btn">COMING SOON</button>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <h2>Future Collection</h2>
+
+  <div class="product-grid">
+    <div class="card">T-SHIRT</div>
+    <div class="card">HOODIE</div>
+    <div class="card">COMING SOON</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  © 2026 LYXORION
+</div>
+
+</body>
+</html>
