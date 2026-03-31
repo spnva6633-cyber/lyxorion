@@ -18,7 +18,18 @@ body{
   background:#000;
   color:#fff;
   font-family:'Playfair Display', serif;
-  overflow:hidden;
+  overflow-x:hidden;
+}
+
+/* MOUSE LIGHT EFFECT */
+.cursor{
+  position:fixed;
+  width:200px;
+  height:200px;
+  background:radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:0;
 }
 
 /* NAV */
@@ -28,8 +39,8 @@ body{
   padding:20px;
   color:#aaa;
   font-size:14px;
-  opacity:0;
-  animation:fadeIn 2s forwards;
+  z-index:2;
+  position:relative;
 }
 
 /* HERO */
@@ -40,15 +51,16 @@ body{
   justify-content:center;
   align-items:center;
   text-align:center;
+  position:relative;
+  z-index:2;
 }
 
-/* LOGO */
+/* 3D LOGO */
 .logo{
-  font-size:48px;
-  letter-spacing:8px;
-  opacity:0;
-  transform:scale(0.8);
-  animation:zoomIn 1.5s forwards;
+  font-size:60px;
+  letter-spacing:10px;
+  text-shadow:0 0 10px rgba(255,255,255,0.2);
+  transition:0.2s;
 }
 
 /* TAGLINE */
@@ -56,56 +68,74 @@ body{
   margin-top:10px;
   color:#aaa;
   letter-spacing:3px;
-  opacity:0;
-  animation:fadeIn 2s 1s forwards;
 }
 
-/* BUTTON */
-.btn{
+/* BUTTONS */
+.btn-group{
   margin-top:30px;
+}
+
+.btn{
+  margin:10px;
   padding:12px 30px;
   border:1px solid #fff;
   color:#fff;
   background:transparent;
-  opacity:0;
-  transform:translateY(20px);
-  animation:slideUp 1.5s 1.5s forwards;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-/* ANIMATIONS */
-@keyframes fadeIn{
-  to{
-    opacity:1;
-  }
+.btn:hover{
+  background:#fff;
+  color:#000;
 }
 
-@keyframes zoomIn{
-  to{
-    opacity:1;
-    transform:scale(1);
-  }
+/* PARALLAX SECTION */
+.parallax{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+  background:linear-gradient(180deg,#000,#111);
 }
 
-@keyframes slideUp{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-.footer{
-  position:absolute;
-  bottom:20px;
-  width:100%;
+/* PRODUCTS */
+.products{
+  padding:50px 20px;
   text-align:center;
+}
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  margin-top:30px;
+}
+
+.card{
+  border:1px solid #333;
+  padding:20px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  border-color:#fff;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  padding:20px;
   color:#555;
-  font-size:12px;
 }
 </style>
-
 </head>
 
 <body>
+
+<div class="cursor" id="cursor"></div>
 
 <div class="nav">
   <div>LYXORION</div>
@@ -113,14 +143,51 @@ body{
 </div>
 
 <section class="hero">
-  <div class="logo">LYXORION</div>
+  <div class="logo" id="logo">LYXORION</div>
   <div class="tagline">BEYOND LUXURY</div>
-  <button class="btn">COMING SOON</button>
+
+  <div class="btn-group">
+    <button class="btn">SHOP NOW</button>
+    <button class="btn">EXPLORE</button>
+  </div>
+</section>
+
+<section class="parallax">
+  Luxury Fashion Experience
+</section>
+
+<section class="products">
+  <h2>Featured Collection</h2>
+
+  <div class="product-grid">
+    <div class="card">Product 1</div>
+    <div class="card">Product 2</div>
+    <div class="card">Product 3</div>
+  </div>
 </section>
 
 <div class="footer">
   © 2026 LYXORION
 </div>
+
+<script>
+
+/* MOUSE FOLLOW LIGHT */
+document.addEventListener("mousemove", e=>{
+  const cursor = document.getElementById("cursor");
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
+
+/* 3D LOGO EFFECT */
+document.addEventListener("mousemove", e=>{
+  const logo = document.getElementById("logo");
+  let x = (window.innerWidth/2 - e.pageX)/25;
+  let y = (window.innerHeight/2 - e.pageY)/25;
+  logo.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+});
+
+</script>
 
 </body>
 </html>
