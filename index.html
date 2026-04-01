@@ -1,227 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LYXORION</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 <style>
-html { scroll-behavior: smooth; }
-
-body {
-  transition: 0.4s ease;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-/* PREMIUM BACKGROUND */
-.dark-mode {
-  background: radial-gradient(circle at top, #111111, #000000 70%);
-  color: white;
-}
-
-.light-mode {
-  background: linear-gradient(135deg, #ffffff, #f8f8f8);
-  color: black;
-}
-
-.gold { color: #D4AF37; }
-.soft { color: #cfcfcf; }
-
-/* ANIMATION */
-.fade { animation: fade 0.8s ease-in; }
-@keyframes fade {
-  from {opacity:0; transform: translateY(20px);}
-  to {opacity:1; transform: translateY(0);}
-}
-
-/* CARD */
-.card:hover {
-  box-shadow: 0 0 20px rgba(212,175,55,0.4);
-}
-
-/* MODAL */
-.modal {
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.85);
+body {background:#0A0A0A; color:white; font-family:'Inter',sans-serif; margin:0;}
+.glass {background:rgba(255,255,255,0.05); backdrop-filter:blur(10px);}
+.panel {position:fixed; top:0; height:100%; width:270px; background:#111; padding:20px; transition:0.3s; z-index:1000;}
+.left {left:-100%;}
+.left.show {left:0;}
+.right {right:-100%;}
+.right.show {right:0;}
+.overlay {position:fixed; inset:0; background:rgba(0,0,0,0.6); display:none; z-index:900;}
+.overlay.show {display:block;}
+.hero {
+  height:100vh;
+  display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
+  text-align:center;
+  background: radial-gradient(circle at center, #111827, #000);
+}
+.hero h1 {
+  font-family:'Playfair Display', serif;
+  font-size:42px;
+  letter-spacing:0.3em;
+  margin-bottom:10px;
+}
+.hero p {
+  color:#aaa;
+  font-size:14px;
+  letter-spacing:0.1em;
+}
+.section {
+  padding:40px 20px;
+  max-width:900px;
+  margin:auto;
+}
+.section h2 {
+  font-family:'Playfair Display', serif;
+  font-size:22px;
+  margin-bottom:15px;
+}
+.section p {
+  color:#bbb;
+  line-height:1.7;
+}
+.product {
+  background:#111;
+  padding:20px;
+  transition:0.3s;
+}
+.product:hover {
+  transform:translateY(-5px);
+  background:#181818;
 }
 </style>
 </head>
-
-<body class="dark-mode">
-
-<!-- NAVBAR -->
-<header class="fixed w-full top-0 bg-black/70 backdrop-blur p-4 flex justify-between items-center z-50">
-  <h1 class="text-xl font-bold tracking-widest gold">LYXORION</h1>
-
-  <nav class="hidden md:flex space-x-4 text-sm">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About Us</a>
-    <a href="#company">The Company</a>
-    <a href="#contact">Contact</a>
-    <button onclick="toggleMode()">🌗</button>
-  </nav>
-
-  <button class="md:hidden" onclick="toggleMenu()">☰</button>
-</header>
-
-<div id="menu" class="hidden p-4 text-center space-y-2">
-  <a href="#home">Home</a><br>
-  <a href="#shop">Shop</a><br>
-  <a href="#about">About Us</a><br>
-  <a href="#company">The Company</a><br>
-  <a href="#contact">Contact</a>
-</div>
-
-<!-- HERO -->
-<section id="home" class="text-center py-32 fade">
-  <h2 class="text-4xl md:text-6xl font-bold uppercase tracking-wider">
-    Wear the Future.<br>Own the Presence.
-  </h2>
-  <p class="mt-4 soft">Luxury • Identity • Power</p>
-</section>
-
-<!-- PRODUCTS -->
-<section id="shop" class="p-6 fade">
-  <h2 class="text-2xl font-bold gold mb-6">Collection</h2>
-
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-
-    <div class="card border p-4 rounded-xl cursor-pointer" onclick="openModal('Jacket')">
-      <img src="https://via.placeholder.com/300">
-      <h3 class="mt-3 font-semibold">Jacket</h3>
-      <p>$</p>
-    </div>
-
-    <div class="card border p-4 rounded-xl cursor-pointer" onclick="openModal('Jeans')">
-      <img src="https://via.placeholder.com/300">
-      <h3 class="mt-3 font-semibold">Jeans</h3>
-      <p>$</p>
-    </div>
-
-    <div class="card border p-4 rounded-xl cursor-pointer" onclick="openModal('T-Shirt')">
-      <img src="https://via.placeholder.com/300">
-      <h3 class="mt-3 font-semibold">T-Shirt</h3>
-      <p>$</p>
-    </div>
-
-    <div class="card border p-4 rounded-xl cursor-pointer" onclick="openModal('Tailored Pants')">
-      <img src="https://via.placeholder.com/300">
-      <h3 class="mt-3 font-semibold">Tailored Pants</h3>
-      <p>$</p>
-    </div>
-
+<body><div id="overlay" class="overlay" onclick="closeAll()"></div><!-- HEADER --><header class="fixed w-full top-0 z-50 glass flex justify-between items-center px-5 py-4">
+  <button onclick="openMenu()">☰</button>
+  <h1 class="tracking-[0.4em] text-sm">LYXORION</h1>
+  <div class="flex gap-4">
+    <button onclick="openSearch()">🔎</button>
+    <button onclick="openAccount()">👤</button>
   </div>
-</section>
-
-<!-- ABOUT US -->
-<section id="about" class="p-6 fade max-w-3xl mx-auto">
-  <h2 class="text-2xl font-bold gold text-center">THE GENESIS OF LYXORION</h2>
-  <p class="mt-4 soft text-center">
-    A Journey Beyond the Stars
+</header><!-- MENU --><div id="menu" class="panel left">
+  <h2 class="mb-4">Menu</h2>
+  <ul class="space-y-3 text-gray-300">
+    <li>Shop</li>
+    <li>Collections</li>
+    <li>Categories</li>
+    <li>About / Contact</li>
+  </ul>
+</div><!-- SEARCH --><div id="search" class="panel right">
+  <h2 class="mb-4">Search</h2>
+  <input placeholder="Search for products" class="w-full p-3 bg-gray-800 mb-3">
+  <p class="text-gray-400 text-sm">Search feature coming soon</p>
+</div><!-- ACCOUNT --><div id="account" class="panel right">
+  <h2 class="mb-4">Account</h2>
+  <input placeholder="Email" class="w-full mb-2 p-3 bg-gray-800">
+  <input placeholder="Password" type="password" class="w-full mb-3 p-3 bg-gray-800">
+  <button class="w-full bg-purple-600 p-2 mb-2">Login</button>
+  <button class="w-full border p-2">Google Login</button>
+</div><!-- HERO --><section class="hero">
+  <h1>LYXORION</h1>
+  <p class="text-gray-400 tracking-widest text-sm">
+Luxury. Power. Presence.
+</p>
+</section><!-- ABOUT --><section class="section">
+  <h2>The Genesis of LYXORION</h2>
+  <p>
+  In the closing moments of 2019, LYXORION was born—not as a simple clothing brand, but as a vision of identity and presence.
+  Inspired by the vast cosmos, it represents strength, elegance, and individuality. The name blends luxury and Orion—symbolizing power and timeless existence.
   </p>
-
-  <p class="mt-6 soft">
-    In the quiet, closing moments of 2019, a vision took flight. It was never just about fabric or threads — it was a dream to create a legacy.
-    A brand that carries the soul of excellence and the grace of the heavens.
-  </p>
-
-  <p class="mt-4 soft">
-    Inspired by the cosmos and the perfection of creation, LYXORION reflects strength, elegance, and celestial presence.
-  </p>
-
-  <p class="mt-4 soft">
-    We do not simply create clothing — we bring the universe into design.
-  </p>
-</section>
-
-<!-- THE COMPANY -->
-<section id="company" class="p-6 fade max-w-3xl mx-auto">
-  <h2 class="text-2xl font-bold gold text-center">THE COMPANY — LYXORION</h2>
-
-  <p class="mt-6 soft">
-    LYXORION is more than a clothing brand; it is a fusion of luxury and cosmic power.
-  </p>
-
-  <p class="mt-4 soft">
-    Built on identity, presence, and status — this brand is for those who define their own path.
-  </p>
-
-  <p class="mt-4 gold text-center">
-    “LYXORION is not just fashion — it’s the presence you carry.”
-  </p>
-</section>
-
-<!-- BRAND MEANING -->
-<section class="p-6 fade max-w-3xl mx-auto text-center">
-  <h2 class="text-2xl font-bold gold">Brand Meaning</h2>
-
-  <p class="mt-4 soft">
-    LYX represents luxury and light. ORION represents strength and infinity.
-  </p>
-
-  <p class="mt-4 soft">
-    Together, they form a powerful identity beyond ordinary fashion.
-  </p>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="p-6 text-center fade">
-  <h2 class="text-2xl font-bold gold">Contact</h2>
-  <p class="mt-2">Asif</p>
-  <p>📞 01804296311</p>
-</section>
-
-<!-- FOOTER -->
-<footer class="p-6 text-center text-sm text-gray-500">
-  © 2026 LYXORION™. All rights reserved. Unauthorized use is prohibited.
-</footer>
-
-<!-- MODAL -->
-<div id="modal" class="modal">
-  <div class="bg-black p-6 rounded-xl text-center">
-    <h2 id="productName" class="text-xl gold"></h2>
-    <button onclick="order()" class="mt-4 bg-yellow-600 px-4 py-2 rounded">Order</button>
-    <br><br>
-    <button onclick="closeModal()">Close</button>
+</section><!-- SHOP --><section class="section">
+  <h2>Shop</h2>
+  <div class="grid grid-cols-2 gap-4">
+    <div class="product">Product</div>
+    <div class="product">Product</div>
   </div>
-</div>
-
-<script>
-let currentProduct = "";
-
-function toggleMode() {
-  document.body.classList.toggle("dark-mode");
-  document.body.classList.toggle("light-mode");
-}
-
-function toggleMenu() {
-  document.getElementById("menu").classList.toggle("hidden");
-}
-
-function openModal(product) {
-  currentProduct = product;
-  document.getElementById("productName").innerText = product;
-  document.getElementById("modal").style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
-
-function order() {
-  let phone = "8801804296311";
-  let message = "Hello, I want to order " + currentProduct + " from LYXORION.";
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`);
-}
-</script>
-
-</body>
+</section><!-- FOOTER --><footer class="p-6 border-t border-gray-800 text-center">
+  <p class="text-sm text-gray-500">© 2026 LYXORION. All rights reserved</p>
+</footer><script>
+function openMenu(){menu.classList.add('show'); overlay.classList.add('show');}
+function openSearch(){search.classList.add('show'); overlay.classList.add('show');}
+function openAccount(){account.classList.add('show'); overlay.classList.add('show');}
+function closeAll(){menu.classList.remove('show'); search.classList.remove('show'); account.classList.remove('show'); overlay.classList.remove('show');}
+</script></body>
 </html>
